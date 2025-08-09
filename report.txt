@@ -1,0 +1,2 @@
+Rental{id=302, user=com.example.rental.model.User@7150af86, inventory=com.example.rental.model.Inventory@6df1b089, rentalDate=2025-03-24 00:00:00.0, returnDate=2025-03-25 00:00:00.0, status=RENTED}
+Rental{id=352, user=com.example.rental.model.User@2ec942e5, inventory=com.example.rental.model.Inventory@44b933b6, rentalDate=2025-03-23 00:00:00.0, returnDate=2025-03-24 00:00:00.0, status=RENTED}

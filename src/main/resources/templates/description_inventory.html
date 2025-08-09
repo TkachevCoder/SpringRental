@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Описание name</title>
+</head>
+<body>
+<h1 th:text="${inventory.name}"></h1>
+<p th:text="${inventory.id}">
+<p th:text="${inventory.name}">
+<p th:text="${inventory.type}">
+<p th:text="${inventory.price}">
+<p th:text="${inventory.description}">
+    <p>
+<img th:if="${inventory.imagePath}" th:src="@{${inventory.imagePath}}"
+           alt="Изображение инвентаря" style="max-width: 100px;">
+</p>
+</body>
+</html>

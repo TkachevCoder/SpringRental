@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование инвентаря</title>
+</head>
+<body>
+<h1>Редактирование инвентаря</h1>
+<form action="#" th:action="@{/inventory/update/{id}(id=${inventory.id})}" th:object="${inventory}" method="post">
+    <p>Название: <input type="text" th:field="*{name}"/></p>
+    <p>Тип: <input type="text" th:field="*{type}"/></p>
+    <p>Цена: <input type="number" th:field="*{price}"/></p>
+    <p><input type="submit" value="Сохранить"/></p>
+</form>
+<a href="/inventory">
+    <button>Вернуться к списку инвентаря</button>
+</a>
+</body>
+</html>

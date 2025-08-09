@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронирование инвентаря</title>
+</head>
+<body>
+<h1>Бронирование инвентаря</h1>
+<form th:action="@{/rental/book/{id}(id=${inventory.id})}" method="post">
+    <div>
+        <label for="rentalDate">Дата бронирования:</label>
+        <input type="date" id="rentalDate" name="rentalDate" required>
+    </div>
+    <div>
+        <label for="returnDate">Дата возврата:</label>
+        <input type="date" id="returnDate" name="returnDate" required>
+    </div>
+    <input type="hidden" th:value="${inventory.id}" name="id"> <!-- Передача id инвентаря -->
+    <button type="submit">Забронировать</button>
+</form>
+</body>
+</html>

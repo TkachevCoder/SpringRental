@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Инвентарь</title>
+</head>
+<body>
+<h1>Список инвентаря</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Тип</th>
+        <th>Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="inv : ${inventory}">
+        <td th:text="${inv.id}"></td>
+        <td th:text="${inv.name}"></td>
+        <td th:text="${inv.type}"></td>
+        <td th:text="${inv.price}"></td>
+        <td>
+            <a th:href="@{/inventory/description/{id}(id=${inv.id})}">Описание</a>
+        </td>
+        <td>
+            <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a th:href="@{/inventory/edit/{id}(id=${inv.id})}">Редактировать</a>
+            <a th:href="@{/inventory/delete/{id}(id=${inv.id})}">Удалить</a>
+            </div>
+
+            <div th:if="${#authorization.expression('hasRole(''USER'')')}">
+                <a th:href="@{/rental/book/{id}(id=${inv.id})}">Забронировать</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+<a href="/inventory/add">
+<button>Добавить</button>
+</a>
+</div>
+</body>
+</html>

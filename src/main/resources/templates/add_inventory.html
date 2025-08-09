@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление инвентаря</title>
+    <style>
+        .form-group {
+            margin: 15px 0;
+        }
+        .form-control-file {
+            display: block;
+            margin-top: 5px;
+        }
+        button, input[type="submit"] {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover, input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<h1>Добавление инвентаря</h1>
+<form th:action="@{/inventory}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Название:</label>
+        <input type="text" th:field="*{inventory.name}" required/>
+    </div>
+    <div class="form-group">
+        <label>Тип:</label>
+        <input type="text" th:field="*{inventory.type}" required/>
+    </div>
+    <div class="form-group">
+        <label>Цена:</label>
+        <input type="number" th:field="*{inventory.price}" step="0.01" required/>
+    </div>
+    <div class="form-group">
+        <label>Описание:</label>
+        <input type="text" th:field="*{inventory.description}"/>
+    </div>
+    <div class="form-group">
+        <label for="file">Изображение:</label>
+        <input type="file" name="image" id="file" accept="image/*" class="form-control-file">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Добавить"/>
+    </div>
+</form>
+<a href="/inventory">
+    <button>Вернуться к списку инвентаря</button>
+</a>
+</body>
+</html>

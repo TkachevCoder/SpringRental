@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Забронированный инвентарь</title>
+</head>
+<body>
+<h1>Забронированный инвентарь</h1>
+<form id="rentalForm" method="post" th:action="@{/rental/process}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Выбрать</th>
+            <th>ID</th>
+            <th>Имя пользователя</th>
+            <th>Инвентарь</th>
+            <th>Дата бронирования</th>
+            <th>Дата возврата</th>
+            <th>Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rental : ${rentals}">
+            <td>
+                <input type="checkbox" name="selectedRentals" th:value="${rental.id}">
+            </td>
+            <td th:text="${rental.id}"></td>
+            <td th:text="${rental.getUser().getUsername()}"></td>
+            <td th:text="${rental.inventory.getName()}"></td>
+            <td th:text="${rental.rentalDate}"></td>
+            <td th:text="${rental.returnDate}"></td>
+            <td th:text="${rental.status}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit">Выдать</button>
+</form>
+
+    <form id="rentalsForm" method="post" th:action="@{/rental/sort}">
+    <div>
+        <label for="rentalDate">Дата бронирования:</label>
+        <input type="date" id="rentalDate" name="rentalDate" required>
+    </div>
+    <div>
+        <label for="returnDate">Дата возврата:</label>
+        <input type="date" id="returnDate" name="returnDate" required>
+    </div>
+    <button type="submit">Отсортировать</button>
+</form>
+
+</body>
+</html>
