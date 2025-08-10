@@ -66,6 +66,7 @@ public class RentalController
         User user = userService.findByUsername(userDetails.getUsername());
         if (user.getRole().equals(Role.ADMIN))
         {
+            int a = Role.ADMIN.ordinal();
             List<Rental> rental = rentalService.getAllRentals();
             model.addAttribute("rentals", rental);
             return "rental";
