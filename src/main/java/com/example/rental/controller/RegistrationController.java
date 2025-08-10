@@ -25,10 +25,12 @@ public class RegistrationController {
         model.addAttribute("user", new User());
         return "register";
     }
+
     @GetMapping("/login")
     public String login() {
         return "login"; // Возвращает страницу входа
     }
+
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword())); // Шифруем пароль

@@ -94,7 +94,7 @@ public class RentalController
                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date returnDate) throws DocumentException, FileNotFoundException {
         List<Rental> rental = rentalService.sortRentalByDate(rentalDate, returnDate);
         model.addAttribute("rentals", rental);
-        rentalService.reportGeneration(rental);
+        //rentalService.reportGeneration(rental);
         return "rental";
     }
     @PostMapping("/report")

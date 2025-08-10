@@ -12,8 +12,10 @@
     <table border="1">
         <thead>
         <tr>
-            <th>Выбрать</th>
-            <th>ID</th>
+            <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <th>Выбрать</th>
+                <th>ID</th>
+            </div>
             <th>Имя пользователя</th>
             <th>Инвентарь</th>
             <th>Дата бронирования</th>
@@ -23,10 +25,12 @@
         </thead>
         <tbody>
         <tr th:each="rental : ${rentals}">
+            <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
             <td>
                 <input type="checkbox" name="selectedRentals" th:value="${rental.id}">
             </td>
             <td th:text="${rental.id}"></td>
+            </div>
             <td th:text="${rental.getUser().getUsername()}"></td>
             <td th:text="${rental.inventory.getName()}"></td>
             <td th:text="${rental.rentalDate}"></td>
@@ -35,10 +39,11 @@
         </tr>
         </tbody>
     </table>
-    <button type="submit">Выдать</button>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <button type="submit">Выдать</button>
+    </div>
 </form>
-
-    <form id="rentalsForm" method="post" th:action="@{/rental/sort}">
+<form id="rentalsForm" method="post" th:action="@{/rental/sort}">
     <div>
         <label for="rentalDate">Дата бронирования:</label>
         <input type="date" id="rentalDate" name="rentalDate" required>
