@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$CONTENT_TITLE">Спортивный инвентарь</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- Вставляем хедер -->
+<div th:replace="~{header :: header}"></div>
+
+<!-- Основное содержимое страницы -->
+<main layout:fragment="content">
+    <!-- Содержимое будет подставлено сюда -->
+</main>
+</body>
+</html>

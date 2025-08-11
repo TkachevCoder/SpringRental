@@ -7,7 +7,17 @@
 </head>
 
 <body>
+<header>
 <h1>Забронированный инвентарь</h1>
+<nav>
+    <ul>
+        <li><a th:href="@{/inventory}">Инвентарь</a></li>
+        <li><a href="/inventory">О нас</a></li>
+        <li><a href="/contacts">Контакты</a></li>
+    </ul>
+</nav>
+</header>
+
 <form id="rentalForm" method="post" th:action="@{/rental/process}">
     <table border="1">
         <thead>
@@ -25,16 +35,14 @@
         </thead>
         <tbody>
         <tr th:each="rental : ${rentals}">
-            <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-            <td>
+            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
                 <input type="checkbox" name="selectedRentals" th:value="${rental.id}">
             </td>
-            <td th:text="${rental.id}"></td>
-            </div>
+            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="${rental.id}"></td>
             <td th:text="${rental.getUser().getUsername()}"></td>
             <td th:text="${rental.inventory.getName()}"></td>
-            <td th:text="${rental.rentalDate}"></td>
-            <td th:text="${rental.returnDate}"></td>
+            <td th:text="${#temporals.format(rental.rentalDate.toLocalDate(), 'yyyy-MM-dd')}"></td>
+            <td th:text="${#temporals.format(rental.returnDate.toLocalDate(), 'yyyy-MM-dd')}"></td>
             <td th:text="${rental.status}"></td>
         </tr>
         </tbody>

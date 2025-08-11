@@ -11,6 +11,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +51,7 @@ public class RentalService {
         return rentals;
     }
 
-    public Rental bookInventory(User user, Inventory inventory, Date rentalDate, Date returnDate) {
+    public Rental bookInventory(User user, Inventory inventory, LocalDateTime rentalDate, LocalDateTime returnDate) {
         Rental rental = new Rental();
         rental.setUser(user);
         rental.setInventory(inventory);
@@ -78,7 +80,7 @@ public class RentalService {
 
     }
 
-    public List<Rental> sortRentalByDate(Date startDate, Date endDate) {
+    public List<Rental> sortRentalByDate(LocalDate startDate, LocalDate  endDate) {
         return rentalRepository.sortRentalByDate(startDate, endDate);
     }
 }

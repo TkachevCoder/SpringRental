@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,6 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
            OR (return_date BETWEEN :startDate AND :endDate)
            OR (rental_date <= :startDate AND return_date >= :endDate)
         """, nativeQuery = true)
-    List<Rental> sortRentalByDate( @Param("startDate") Date startDate,
-                                   @Param("endDate") Date endDate);
+    List<Rental> sortRentalByDate( @Param("startDate") LocalDate startDate,
+                                   @Param("endDate") LocalDate  endDate);
 }

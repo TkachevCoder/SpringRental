@@ -21,7 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/register", "/login").permitAll() // Разрешить доступ всем
+                        .requestMatchers("/", "/register", "/login", "/css/**", "/images/**").permitAll() // Разрешить доступ всем
                         .requestMatchers("/inventory").hasAnyRole("ADMIN", "USER") // Только для админов
                         .requestMatchers("/inventory/add",
                                 "/inventory/edit/**",

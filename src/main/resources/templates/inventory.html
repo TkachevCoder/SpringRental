@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/css/style.css">
     <meta charset="UTF-8">
     <title>Инвентарь</title>
 </head>
 <body>
-<h1>Список инвентаря</h1>
+<header>
+    <nav>
+        <ul class="nav-left">
+            <li><a href="/inventory">Инвентарь</a></li>
+            <li><a href="/rental">Арендованный инвентарь</a></li>
+        </ul>
+        <div class="nav-right">
+            <span id="username"></span>
+            <span id="userrole"></span>
+            <form action="/logout" method="post" style="display: inline;">
+                <button type="submit" class="logout-btn">Выйти</button>
+            </form>
+        </div>
+    </nav>
+</header>
+    <h1>Список инвентаря</h1>
 <table border="1">
     <thead>
     <tr>
@@ -17,6 +32,7 @@
     </tr>
     </thead>
     <tbody>
+
     <tr th:each="inv : ${inventory}">
         <td th:text="${inv.id}"></td>
         <td th:text="${inv.name}"></td>

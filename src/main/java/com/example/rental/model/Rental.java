@@ -4,6 +4,7 @@ import com.example.rental.model.enums.Status;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,13 +16,16 @@ public class Rental {
     private User user;
     @ManyToOne
     private Inventory inventory;
-    private Date rentalDate;
-    private Date returnDate;
+    @Column(name = "rental_date")
+    private LocalDateTime rentalDate;
+
+    @Column(name = "return_date")
+    private LocalDateTime returnDate;
     private Status status;
 
     public Rental() {}
 
-    public Rental(Long id, User user, Inventory inventory, Date rentalDate, Date returnDate, Status status) {
+    public Rental(Long id, User user, Inventory inventory, LocalDateTime rentalDate, LocalDateTime returnDate, Status status) {
         this.id = id;
         this.user = user;
         this.inventory = inventory;
@@ -54,19 +58,19 @@ public class Rental {
         this.inventory = inventory;
     }
 
-    public Date getRentalDate() {
+    public LocalDateTime getRentalDate() {
         return rentalDate;
     }
 
-    public void setRentalDate(Date rentalDate) {
+    public void setRentalDate(LocalDateTime rentalDate) {
         this.rentalDate = rentalDate;
     }
 
-    public Date getReturnDate() {
+    public LocalDateTime getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
     }
 

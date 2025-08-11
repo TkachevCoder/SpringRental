@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Удаляем link из header, так как он уже есть в layout -->
+</head>
+<body>
+<header>
+    <nav>
+        <ul class="nav-left">
+            <li><a href="/inventory">Инвентарь</a></li>
+            <li><a href="/rental">Арендованный инвентарь</a></li>
+        </ul>
+        <div class="nav-right">
+            <span id="username"></span>
+            <span id="userrole"></span>
+            <form action="/logout" method="post" style="display: inline;">
+                <button type="submit" class="logout-btn">Выйти</button>
+            </form>
+        </div>
+    </nav>
+</header>
+</body>
+</html>
