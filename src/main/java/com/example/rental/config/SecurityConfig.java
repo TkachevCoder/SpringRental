@@ -35,6 +35,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login") // Перенаправление после выхода
+                        .logoutUrl("/logout")
                         .permitAll()
                 );
 
