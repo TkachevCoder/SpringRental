@@ -6,6 +6,7 @@ import com.example.rental.model.User;
 import com.example.rental.model.enums.Role;
 import com.example.rental.model.enums.Status;
 import com.example.rental.service.*;
+import com.example.rental.util.RentalDateComparator;
 import com.itextpdf.text.DocumentException;
 import jakarta.mail.MessagingException;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -70,7 +72,10 @@ public class RentalController
         {
             int a = Role.ADMIN.ordinal();
             List<Rental> rental = rentalService.getAllRentals();
+            List<Rental> sortRentalByDate = rental;
+            sortRentalByDate.sort(new RentalDateComparator());
             model.addAttribute("rentals", rental);
+            model.addAttribute("sortRentalByDate", sortRentalByDate);
             return "rental";
         }
         else
@@ -99,6 +104,9 @@ public class RentalController
         //rentalService.reportGeneration(rental);
         return "rental";
     }
+
+
+
     @PostMapping("/report")
     public String reportGeneration(Model model,
                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate  rentalDate,

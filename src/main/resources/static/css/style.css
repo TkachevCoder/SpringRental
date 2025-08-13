@@ -227,3 +227,67 @@ footer {
     padding: 1rem 0;
     margin-top: 2rem;
 }
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Стили для левой части (ссылки с зеленой рамкой) */
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+    border: 2px solid #28a745; /* Зеленая рамка */
+}
+
+nav ul li a:hover {
+    background-color: #e9ecef;
+    border-color: #218838; /* Темно-зеленая рамка при наведении */
+}
+
+/* Стили для правой части (информация о пользователе и кнопка выхода) */
+nav div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+nav div span {
+    color: #555;
+}
+
+/* Стили для кнопки выхода */
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+/* Стиль для заголовка по центру */
+h1 {
+    text-align: center;
+    margin: 2rem 0;
+}

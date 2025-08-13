@@ -7,17 +7,25 @@
 </head>
 
 <body>
-<header>
 <h1>Забронированный инвентарь</h1>
-<nav>
-    <ul>
-        <li><a th:href="@{/inventory}">Инвентарь</a></li>
-        <li><a th:href="@{/inventory}">Аренда</a></li>
-        <li><a href="/contacts">Контакты</a></li>
-        <li><a href="/contacts">Контакты</a></li>
-    </ul>
-</nav>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/inventory">Инвентарь</a></li>
+            <li><a href="/rental">Арендованный инвентарь</a></li>
+        </ul>
+        <div th:if="${#authentication.isAuthenticated()}">
+            <span th:text="${#authentication.principal.username}"></span>
+            <span th:text="'(' + ${#authentication.principal.authorities[0].authority.replace('ROLE_', '')} + ')'"></span>
+            <form action="/logout" method="post" style="display: inline;">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="logout-btn">Выйти</button>
+            </form>
+        </div>
+
+    </nav>
 </header>
+
 
 <form id="rentalForm" method="post" th:action="@{/rental/process}">
     <table border="1">
