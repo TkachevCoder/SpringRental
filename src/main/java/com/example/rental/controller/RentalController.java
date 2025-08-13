@@ -4,11 +4,9 @@ import com.example.rental.model.Inventory;
 import com.example.rental.model.Rental;
 import com.example.rental.model.User;
 import com.example.rental.model.enums.Role;
-import com.example.rental.model.enums.Status;
 import com.example.rental.service.*;
 import com.example.rental.util.RentalDateComparator;
 import com.itextpdf.text.DocumentException;
-import jakarta.mail.MessagingException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,15 +17,12 @@ import org.springframework.ui.Model;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/rental")
-public class RentalController
-{
+public class RentalController {
     private final RentalService rentalService;
     private final InventoryService inventoryService;
     private final UserService userService;
@@ -52,9 +47,9 @@ public class RentalController
     }
 
     @PostMapping("/book/{id}")
-    public String bookInventory( @PathVariable Long id,
-                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime rentalDate,
-                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime returnDate) {
+    public String bookInventory(@PathVariable Long id,
+                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime rentalDate,
+                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime returnDate) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
         Inventory inventory = inventoryService.findById(id);
@@ -64,12 +59,10 @@ public class RentalController
     }
 
     @GetMapping
-    public String rental(Model model)
-    {
+    public String rental(Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
-        if (user.getRole().equals(Role.ADMIN))
-        {
+        if (user.getRole().equals(Role.ADMIN)) {
             int a = Role.ADMIN.ordinal();
             List<Rental> rental = rentalService.getAllRentals();
             List<Rental> sortRentalByDate = rental;
@@ -77,12 +70,10 @@ public class RentalController
             model.addAttribute("rentals", rental);
             model.addAttribute("sortRentalByDate", sortRentalByDate);
             return "rental";
-        }
-        else
-        {
-        List<Rental> rental = rentalService.findAllRentalByUserId(user.getId());
-        model.addAttribute("rentals", rental);
-        return "rental";
+        } else {
+            List<Rental> rental = rentalService.findAllRentalByUserId(user.getId());
+            model.addAttribute("rentals", rental);
+            return "rental";
         }
     }
 
@@ -96,22 +87,29 @@ public class RentalController
     }
 
     @PostMapping("/sort")
-    public String sortRentalByDate(Model model,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate rentalDate,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate  returnDate) throws DocumentException, FileNotFoundException {
-        List<Rental> rental = rentalService.sortRentalByDate(rentalDate, returnDate);
+    public String sortRentalByDate1(Model model,
+                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate rentalDate,
+                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnDate) {
+        List<Rental> rental = rentalService.findByRentalDateBetweenAndReturnDateBetween(rentalDate, returnDate);
         model.addAttribute("rentals", rental);
         //rentalService.reportGeneration(rental);
         return "rental";
     }
 
-
+    @PostMapping("/sortDate")
+    public String sortRentalByDate(Model model)
+    {
+               List<Rental> rental = rentalService.getSortRental();
+               model.addAttribute("sortRental", rental);
+               return "rental";
+    }
 
     @PostMapping("/report")
+
     public String reportGeneration(Model model,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate  rentalDate,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate  returnDate) throws DocumentException, FileNotFoundException {
-        List<Rental> rentals = rentalService.sortRentalByDate(rentalDate, returnDate);
+                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate rentalDate,
+                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnDate) throws DocumentException, FileNotFoundException {
+        List<Rental> rentals = rentalService.findByRentalDateBetweenAndReturnDateBetween(rentalDate, returnDate);
         rentalService.reportGeneration(rentals);
         model.addAttribute("rentals", rentals);
         return "rental";

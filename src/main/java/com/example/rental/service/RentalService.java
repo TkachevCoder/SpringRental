@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,7 +78,14 @@ public class RentalService {
 
     }
 
-    public List<Rental> sortRentalByDate(LocalDate startDate, LocalDate  endDate) {
-        return rentalRepository.sortRentalByDate(startDate, endDate);
+    public List<Rental> findByRentalDateBetweenAndReturnDateBetween(LocalDate startDate, LocalDate  endDate) {
+        return rentalRepository.findByRentalDateBetweenAndReturnDateBetween(startDate, endDate);
     }
+
+    public List<Rental> getSortRental()
+    {
+        return rentalRepository.findAllByRentalDateAsc();
+    }
+
+
 }
