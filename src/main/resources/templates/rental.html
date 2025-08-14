@@ -56,11 +56,12 @@
         </tr>
         </tbody>
     </table>
+    <div th:if="${error}" class="error-message" th:text="${error}"></div>
     <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
         <button type="submit">Выдать</button>
     </div>
 </form>
-<form id="rentalsForm" method="post" th:action="@{/rental/sort}">
+<form id="rentalsForm" method="post" th:action="@{/rental/report}">
     <div>
         <label for="rentalDate">Дата бронирования:</label>
         <input type="date" id="rentalDate" name="rentalDate" required>
@@ -69,12 +70,10 @@
         <label for="returnDate">Дата возврата:</label>
         <input type="date" id="returnDate" name="returnDate" required>
     </div>
-    <button type="submit">Отсортировать</button>
+    <button type="submit">Сформировать отчет</button>
 </form>
 
 <form id="sortRentalForm" method="post" th:action="@{/rental/sortDate}">
-
-
     <button type="submit">Отсортировать 2</button>
 </form>
 </body>

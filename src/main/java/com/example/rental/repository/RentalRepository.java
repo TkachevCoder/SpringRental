@@ -32,5 +32,5 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
     List<Rental> findByRentalDateBetweenAndReturnDateBetween(@Param("startDate") LocalDate startDate,
                                                              @Param("endDate") LocalDate  endDate);
 
-    List<Rental> findAllByRentalDateAsc();
+    List<Rental> findAllByOrderByRentalDateAsc();
 }

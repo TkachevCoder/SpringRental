@@ -84,7 +84,7 @@ public class RentalService {
 
     public List<Rental> getSortRental()
     {
-        return rentalRepository.findAllByRentalDateAsc();
+        return rentalRepository.findAllByOrderByRentalDateAsc();
     }
 
 

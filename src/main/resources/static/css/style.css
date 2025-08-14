@@ -1,4 +1,4 @@
-/* Общие стили для всех страниц */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -7,13 +7,21 @@ body {
     color: #333;
     background-color: #f5f5f5;
 }
-
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 8px;
+    background-color: #ffeeee; /* РЎРІРµС‚Р»Рѕ-РєСЂР°СЃРЅС‹Р№ С„РѕРЅ РґР»СЏ Р»СѓС‡С€РµР№ РІРёРґРёРјРѕСЃС‚Рё */
+    border: 1px solid #ffcccc;
+    border-radius: 4px;
+}
 h1 {
     color: #2c3e50;
     margin-bottom: 20px;
 }
 
-/* Стили для форм */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
 form {
     background: white;
     padding: 20px;
@@ -48,7 +56,7 @@ input[type="file"] {
     margin-top: 5px;
 }
 
-/* Стили для кнопок */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 button,
 input[type="submit"] {
     padding: 8px 15px;
@@ -66,7 +74,7 @@ input[type="submit"]:hover {
     background-color: #45a049;
 }
 
-/* Стили для таблиц */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -90,7 +98,7 @@ tr:hover {
     background-color: #f5f5f5;
 }
 
-/* Стили для ссылок */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 a {
     color: #3498db;
     text-decoration: none;
@@ -101,20 +109,20 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Стили для изображений */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 img {
     max-width: 100%;
     height: auto;
     border-radius: 4px;
 }
 
-/* Стили для чекбоксов */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 input[type="checkbox"] {
     margin: 0;
     transform: scale(1.2);
 }
 
-/* Адаптивные стили */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 @media (max-width: 768px) {
     input[type="text"],
     input[type="number"],
@@ -129,7 +137,7 @@ input[type="checkbox"] {
         overflow-x: auto;
     }
 }
-/* Общие стили */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
@@ -143,7 +151,7 @@ body {
     margin: 0 auto;
 }
 
-/* Навигация */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .navbar {
     background-color: #2c3e50;
     color: white;
@@ -214,7 +222,7 @@ body {
     background: #c0392b;
 }
 
-/* Основное содержимое */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 main {
     padding: 2rem 0;
     min-height: calc(100vh - 200px);
@@ -236,7 +244,7 @@ nav {
     border-bottom: 1px solid #e0e0e0;
 }
 
-/* Стили для левой части (ссылки с зеленой рамкой) */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ) */
 nav ul {
     display: flex;
     list-style: none;
@@ -252,15 +260,15 @@ nav ul li a {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     transition: all 0.3s;
-    border: 2px solid #28a745; /* Зеленая рамка */
+    border: 2px solid #28a745; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 }
 
 nav ul li a:hover {
     background-color: #e9ecef;
-    border-color: #218838; /* Темно-зеленая рамка при наведении */
+    border-color: #218838; /* пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
-/* Стили для правой части (информация о пользователе и кнопка выхода) */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ) */
 nav div {
     display: flex;
     align-items: center;
@@ -271,7 +279,7 @@ nav div span {
     color: #555;
 }
 
-/* Стили для кнопки выхода */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 .logout-btn {
     background-color: #dc3545;
     color: white;
@@ -286,7 +294,7 @@ nav div span {
     background-color: #c82333;
 }
 
-/* Стиль для заголовка по центру */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 h1 {
     text-align: center;
     margin: 2rem 0;

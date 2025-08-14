@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -78,7 +79,12 @@ public class RentalController {
     }
 
     @PostMapping("/process")
-    public String updateSelectedRentalsStatus(@RequestParam("selectedRentals") List<Long> selectedRentalIds) {
+    public String updateSelectedRentalsStatus(@RequestParam(value = "selectedRentals", required = false) List<Long> selectedRentalIds,
+                                              RedirectAttributes redirectAttributes) {
+        if (selectedRentalIds == null || selectedRentalIds.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Выберите хотя бы один элемент");
+            return "redirect:/rental";
+        }
 
         rentalService.updateSelectedRentalsStatus(1, selectedRentalIds);
         List<Rental> rentals = rentalService.findRentalsByIds(selectedRentalIds);
@@ -100,12 +106,11 @@ public class RentalController {
     public String sortRentalByDate(Model model)
     {
                List<Rental> rental = rentalService.getSortRental();
-               model.addAttribute("sortRental", rental);
+               model.addAttribute("rentals", rental);
                return "rental";
     }
 
     @PostMapping("/report")
-
     public String reportGeneration(Model model,
                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate rentalDate,
                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnDate) throws DocumentException, FileNotFoundException {
