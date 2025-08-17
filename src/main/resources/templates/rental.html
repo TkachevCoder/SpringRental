@@ -50,8 +50,8 @@
             <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="${rental.id}"></td>
             <td th:text="${rental.getUser().getUsername()}"></td>
             <td th:text="${rental.inventory.getName()}"></td>
-            <td th:text="${#temporals.format(rental.rentalDate.toLocalDate(), 'yyyy-MM-dd')}"></td>
-            <td th:text="${#temporals.format(rental.returnDate.toLocalDate(), 'yyyy-MM-dd')}"></td>
+            <td th:text="${rental.rentalDate}"></td>
+            <td th:text="${rental.returnDate}"></td>
             <td th:text="${rental.status}"></td>
         </tr>
         </tbody>

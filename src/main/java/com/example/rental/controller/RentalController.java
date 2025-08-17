@@ -49,8 +49,8 @@ public class RentalController {
 
     @PostMapping("/book/{id}")
     public String bookInventory(@PathVariable Long id,
-                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime rentalDate,
-                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime returnDate) {
+                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate rentalDate,
+                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnDate) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
         Inventory inventory = inventoryService.findById(id);
@@ -66,11 +66,8 @@ public class RentalController {
         if (user.getRole().equals(Role.ADMIN)) {
             int a = Role.ADMIN.ordinal();
             List<Rental> rental = rentalService.getAllRentals();
-            List<Rental> sortRentalByDate = rental;
-            sortRentalByDate.sort(new RentalDateComparator());
             model.addAttribute("rentals", rental);
-            model.addAttribute("sortRentalByDate", sortRentalByDate);
-            return "rental";
+                    return "rental";
         } else {
             List<Rental> rental = rentalService.findAllRentalByUserId(user.getId());
             model.addAttribute("rentals", rental);
@@ -92,15 +89,15 @@ public class RentalController {
         return "redirect:/rental";
     }
 
-    @PostMapping("/sort")
-    public String sortRentalByDate1(Model model,
-                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate rentalDate,
-                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnDate) {
-        List<Rental> rental = rentalService.findByRentalDateBetweenAndReturnDateBetween(rentalDate, returnDate);
-        model.addAttribute("rentals", rental);
-        //rentalService.reportGeneration(rental);
-        return "rental";
-    }
+//    @PostMapping("/sort")
+//    public String sortRentalByDate1(Model model,
+//                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate rentalDate,
+//                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnDate) {
+//        List<Rental> rental = rentalService.findByRentalDateBetweenAndReturnDateBetween(rentalDate, returnDate);
+//        model.addAttribute("rentals", rental);
+//        //rentalService.reportGeneration(rental);
+//        return "rental";
+//    }
 
     @PostMapping("/sortDate")
     public String sortRentalByDate(Model model)

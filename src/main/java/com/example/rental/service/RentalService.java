@@ -8,6 +8,7 @@ import com.example.rental.repository.RentalRepository;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -49,7 +50,7 @@ public class RentalService {
         return rentals;
     }
 
-    public Rental bookInventory(User user, Inventory inventory, LocalDateTime rentalDate, LocalDateTime returnDate) {
+    public Rental bookInventory(User user, Inventory inventory, LocalDate rentalDate, LocalDate returnDate) {
         Rental rental = new Rental();
         rental.setUser(user);
         rental.setInventory(inventory);
@@ -84,7 +85,8 @@ public class RentalService {
 
     public List<Rental> getSortRental()
     {
-        return rentalRepository.findAllByOrderByRentalDateAsc();
+        //return rentalRepository.findAllByOrderByRentalDateAsc();
+        return rentalRepository.findAll(Sort.by("rentalDate"));
     }
 
 
