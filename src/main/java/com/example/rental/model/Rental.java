@@ -83,15 +83,5 @@ public class Rental {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Rental{" +
-                "id=" + id +
-                ", user=" + user +
-                ", inventory=" + inventory +
-                ", rentalDate=" + rentalDate +
-                ", returnDate=" + returnDate +
-                ", status=" + status +
-                '}';
+
     }
-}

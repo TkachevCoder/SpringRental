@@ -299,3 +299,22 @@ h1 {
     text-align: center;
     margin: 2rem 0;
 }
+
+.sort-button {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.sort-button:hover {
+    background: #e0e0e0;
+}
+
+.sort-button.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}

@@ -3,9 +3,11 @@ package com.example.rental.service;
 import com.example.rental.model.Inventory;
 import com.example.rental.model.Rental;
 import com.example.rental.model.User;
+import com.example.rental.model.dto.RentalDto;
 import com.example.rental.model.enums.Status;
 import com.example.rental.repository.RentalRepository;
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
@@ -64,21 +66,35 @@ public class RentalService {
         rentalRepository.updateSelectedRentalsStatus(newStatus, selectedRentalIds);
     }
 
-    public void reportGeneration(List<Rental> rentals) throws FileNotFoundException, DocumentException {
+    public void reportGeneration(List<Rental> rentals) throws IOException, DocumentException {
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Pudge\\Desktop\\rental\\report.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\New\\Desktop\\rental\\report.pdf"));
         document.open();
-        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
 
-        for (Rental rental : rentals)
-        {
-            Paragraph paragraph = new Paragraph(rental.toString() + "\n", font);
+        BaseFont baseFont = null;
+
+            baseFont = BaseFont.createFont(
+                    "c:/windows/fonts/arial.ttf", // путь к шрифту Arial
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+            );
+
+        Font font = new Font(baseFont, 12, Font.NORMAL);
+
+        for (Rental rental : rentals) {
+            String content = "ID аренды: " + rental.getId() +
+                    "\nПользователь: " + (rental.getUser() != null ? rental.getUser().getUsername() : "Неизвестно") +
+                    "\nИнвентарь: " + (rental.getInventory() != null ? rental.getInventory().getName() : "Неизвестно") +
+                    "\nДата аренды: " + rental.getRentalDate() +
+                    "\nДата возврата: " + rental.getReturnDate() +
+                    "\nСтатус: " + (rental.getStatus() != null ? rental.getStatus() : "Неизвестно") +
+                    "\n----------------------------------------";
+
+            Paragraph paragraph = new Paragraph(content, font);
             document.add(paragraph);
         }
         document.close();
-
     }
-
     public List<Rental> findByRentalDateBetweenAndReturnDateBetween(LocalDate startDate, LocalDate  endDate) {
         return rentalRepository.findByRentalDateBetweenAndReturnDateBetween(startDate, endDate);
     }
@@ -89,5 +105,26 @@ public class RentalService {
         return rentalRepository.findAll(Sort.by("rentalDate"));
     }
 
+    public List<Rental> getAllRentalsSorted(String sortBy, String sortOrder) {
+        Sort sort = createSort(sortBy, sortOrder);
+        return rentalRepository.findAll(sort);
+    }
 
+    public List<Rental> findAllRentalByUserIdSorted(Long userId, String sortBy, String sortOrder) {
+        Sort.Direction direction = sortOrder.equalsIgnoreCase("desc") ?
+                Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sort = Sort.by(direction, sortBy);
+
+        return rentalRepository.findAllRentalByUserId(userId, sort);
+    }
+
+    private Sort createSort(String sortBy, String sortOrder) {
+        Sort.Direction direction = sortOrder.equalsIgnoreCase("desc") ?
+                Sort.Direction.DESC : Sort.Direction.ASC;
+        return Sort.by(direction, sortBy);
+    }
+
+    public List<Rental> findByRentalDateBetweenAndReturnDateBetweenWithDetails(LocalDate rentalDate, LocalDate returnDate) {
+        return rentalRepository.findByRentalDateBetweenAndReturnDateBetweenWithDetails(rentalDate, returnDate);
+    }
 }

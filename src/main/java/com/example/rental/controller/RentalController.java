@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,19 +61,26 @@ public class RentalController {
     }
 
     @GetMapping
-    public String rental(Model model) {
+    public String rental(Model model,
+                         @RequestParam(defaultValue = "rentalDate") String sortBy,
+                         @RequestParam(defaultValue = "asc") String sortOrder) {
+
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
+
+        List<Rental> rentals;
         if (user.getRole().equals(Role.ADMIN)) {
-            int a = Role.ADMIN.ordinal();
-            List<Rental> rental = rentalService.getAllRentals();
-            model.addAttribute("rentals", rental);
-                    return "rental";
+            rentals = rentalService.getAllRentalsSorted(sortBy, sortOrder);
         } else {
-            List<Rental> rental = rentalService.findAllRentalByUserId(user.getId());
-            model.addAttribute("rentals", rental);
-            return "rental";
+            rentals = rentalService.findAllRentalByUserIdSorted(user.getId(), sortBy, sortOrder);
         }
+
+        model.addAttribute("rentals", rentals);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortOrder", sortOrder);
+        model.addAttribute("nextSortOrder", sortOrder.equals("asc") ? "desc" : "asc");
+
+        return "rental";
     }
 
     @PostMapping("/process")
@@ -108,12 +116,12 @@ public class RentalController {
     }
 
     @PostMapping("/report")
-    public String reportGeneration(Model model,
+    public String reportGeneration(RedirectAttributes redirectAttributes,
                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate rentalDate,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnDate) throws DocumentException, FileNotFoundException {
-        List<Rental> rentals = rentalService.findByRentalDateBetweenAndReturnDateBetween(rentalDate, returnDate);
+                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnDate) throws DocumentException, IOException {
+        List<Rental> rentals = rentalService.findByRentalDateBetweenAndReturnDateBetweenWithDetails(rentalDate, returnDate);
         rentalService.reportGeneration(rentals);
-        model.addAttribute("rentals", rentals);
-        return "rental";
+        redirectAttributes.addFlashAttribute("message", "Отчет успешно сформирован");
+              return "redirect:/rental";
     }
 }

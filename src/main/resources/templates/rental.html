@@ -73,8 +73,31 @@
     <button type="submit">Сформировать отчет</button>
 </form>
 
-<form id="sortRentalForm" method="post" th:action="@{/rental/sortDate}">
-    <button type="submit">Отсортировать 2</button>
-</form>
+<!-- Кнопки сортировки -->
+<div style="margin: 10px 0;">
+    <form method="get" th:action="@{/rental}" style="display: inline;">
+        <input type="hidden" name="sortBy" value="rentalDate">
+        <input type="hidden" name="sortOrder" th:value="${sortBy == 'rentalDate' ? nextSortOrder : 'asc'}">
+        <button type="submit"
+                th:style="${sortBy == 'rentalDate'} ? 'font-weight: bold;' : ''">
+            Сортировать по дате бронирования
+            <span th:if="${sortBy == 'rentalDate'}">
+                (<span th:text="${sortOrder == 'asc' ? '↑' : '↓'}"></span>)
+            </span>
+        </button>
+    </form>
+
+    <form method="get" th:action="@{/rental}" style="display: inline; margin-left: 10px;">
+        <input type="hidden" name="sortBy" value="returnDate">
+        <input type="hidden" name="sortOrder" th:value="${sortBy == 'returnDate' ? nextSortOrder : 'asc'}">
+        <button type="submit"
+                th:style="${sortBy == 'returnDate'} ? 'font-weight: bold;' : ''">
+            Сортировать по дате возврата
+            <span th:if="${sortBy == 'returnDate'}">
+                (<span th:text="${sortOrder == 'asc' ? '↑' : '↓'}"></span>)
+            </span>
+        </button>
+    </form>
+</div>
 </body>
 </html>
